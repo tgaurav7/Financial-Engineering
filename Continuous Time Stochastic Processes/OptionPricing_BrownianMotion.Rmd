@@ -1,0 +1,100 @@
+---
+
+output: pdf_document
+---
+
+# Question 1
+
+## Part (d)
+Assume that stock price $S_t$ follows a geometric brownian process.
+
+\begin{equation}
+dS_t = \mu S_t \ dt + \sigma S_t \ dW_t
+\end{equation}
+
+where $W_t$ is a standard Brownian process.
+
+Recall Ito's Lemma from the lecture notes. If $S_t$ is an Ito's process, then $Y_t = f(t, S_t)$ is also an Ito's process.Let $f$ denote the value of a call option.
+
+\begin{equation}
+dY_t = df(t, S_t) = [\frac{\partial f}{\partial t} + \frac{1}{2}\sigma^2 S_t^2 \frac{\partial^2 f}{\partial s^2} + \mu S_t \frac{\partial f}{\partial s}] \ dt + \sigma S_t \frac{\partial f}{\partial s} \ dW_t
+\end{equation}
+
+Consider a portfolio $\Pi$:
+\begin{itemize}
+  \item long 1 call option
+  \item short $\Delta$ stocks, for some constant $\Delta$
+\end{itemize}
+
+The value of the portfolio $\Pi$ is defined as:
+\begin{equation}
+\Pi = f(t,S_t) - \Delta S_t
+\end{equation}
+
+Consider a change in portfolio value.
+\begin{equation}
+d\Pi = df(t,S_t) - \Delta dS_t
+\end{equation}
+
+Substitute $df(t,S_t)$ and $dS_t$ with Ito's Lemma from equation 2 and geometric brownian motion from equation 1 respectively.
+\begin{equation}
+d\Pi = [\frac{\partial f}{\partial t} + \frac{1}{2}\sigma^2 S_t^2 \frac{\partial^2 f}{\partial s^2} + \mu S_t \frac{\partial f}{\partial s}]dt + \sigma S_t \frac{\partial f}{\partial s} dW_t - \Delta [\mu S_t \ dt + \sigma S_t \ dW_t]
+\end{equation}
+
+Perform some algebraic manipulation.
+\begin{equation}
+d\Pi = \frac{\partial f}{\partial t}dt + \frac{1}{2}\sigma^2 S_t^2 \frac{\partial^2 f}{\partial s^2}dt + \frac{\partial f}{\partial s}S_t[\mu \ dt + \sigma \ dW_t] - \Delta S_t [\mu \ dt + \sigma \ dW_t]
+\end{equation}
+
+Choose $\Delta = \frac{\partial f}{\partial s}$ to eliminate the risk $dS_t$. This is also known as the delta-hedging strategy.
+\begin{equation}
+d\Pi = \frac{\partial f}{\partial t}dt + \frac{1}{2}\sigma^2 S_t^2 \frac{\partial^2 f}{\partial s^2}dt
+\end{equation}
+
+From a risk-neutral perspective, the growth in portfolio value is equal to the return generated in a risk-free interest-bearing account.
+\begin{equation}
+d\Pi = r\Pi dt
+\end{equation}
+
+Substitute $\Pi$, $d\Pi$ from equation 3 and 7 respectively.
+\begin{equation}
+\frac{\partial f}{\partial t}dt + \frac{1}{2}\sigma^2 S_t^2 \frac{\partial^2 f}{\partial s^2}dt = r(f - \frac{\partial f}{\partial s} S_t)dt
+\end{equation}
+
+After some algebraic manipulation, the Black-Scholes differential equation is derived.
+\begin{equation}
+\frac{\partial f}{\partial t} + \frac{1}{2}\sigma^2 S_t^2 \frac{\partial^2 f}{\partial s^2} + rS_t \frac{\partial f}{\partial s} - rf = 0
+\end{equation}
+
+## Part e
+The 3 main Greeks are:
+\begin{itemize}
+  \item Delta $\Delta$ measures the change in option price due to a dollar increase in the underlying stock.
+  \item Gamma $\Gamma$ measures the rate of change of delta given a dollar increase in the underlying stock price.
+  \item Theta $\Theta$ measures the sensitivity of an option as it approaches maturity.
+\end{itemize}
+
+\begin{equation}
+\Delta = \frac{\partial f(t, S_t)}{\partial S_t}
+\end{equation}
+
+\begin{equation}
+\Gamma = \frac{\partial f^2(t,S_t)}{\partial S_t^2}
+\end{equation}
+
+\begin{equation}
+\Theta = \frac{\partial f(t,S_t)}{\partial t}
+\end{equation}
+
+The Black-Scholes differential equation in Greek form is defined as:
+\begin{equation}
+\Theta + \frac{1}{2}\sigma^2 S_t^2 \Gamma + rS_t \Delta - rf = 0
+\end{equation}
+
+## Part f
+In a delta-neutral strategy, the delta is zero. ($\Delta=0$)
+\begin{equation}
+\Theta + \frac{1}{2}\sigma^2 S_t^2 \Gamma = rf
+\end{equation}
+
+We can consider the RHS as a risk-free interest-bearing account. Hence, an increase in $\Theta$ must be offset by a decrease in $\Gamma$. Similarly, an increase in $\Gamma$ must be offset by a decrease in $\Theta$. Hence, $\Theta$ and $\Gamma$ has opposite signs.
